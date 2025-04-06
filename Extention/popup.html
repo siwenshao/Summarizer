@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WebPage Summarizer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>WebPage Summarizer</h1>
+    <button id="summarizeBtn">Summarize This Page</button>
+    <div id="loadingIndicator" class="hidden">
+      <div class="spinner"></div>
+      <p>Generating summary...</p>
+    </div>
+    <div id="resultContainer" class="hidden">
+      <h2>Summary:</h2>
+      <div id="summaryContent"></div>
+    </div>
+    <div id="errorContainer" class="hidden">
+      <p id="errorMessage" class="error"></p>
+    </div>
+    <div class="settings">
+      <input type="text" id="apiKeyInput" placeholder="Enter OpenAI API Key">
+      <button id="saveApiKey">Save API Key</button>
+      <p id="apiKeyStatus"></p>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
