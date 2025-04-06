@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/marked@4.0.10/lib/marked.umd.min.js"></script>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,7 +9,25 @@
   </head>
   <body>
     <div class="container">
+      <!-- TITLE -->
       <h1>WebPage Summarizer</h1>
+
+      <!-- Enter Gemini API Key -->
+      <h2>Enter Gemini API Key:</h2>
+      <div class="settings">
+        <div class="keyAndButton">
+          <input
+            type="text"
+            id="apiKeyInput"
+            placeholder="Enter Gemini API Key"
+          />
+          <button id="saveApiKey">Save API Key</button>
+        </div>
+
+        <p id="apiKeyStatus"></p>
+      </div>
+
+      <!-- Summarize This page button -->
       <button id="summarizeBtn">Summarize This Page</button>
       <div id="loadingIndicator" class="hidden">
         <div class="spinner"></div>
@@ -19,15 +39,6 @@
       </div>
       <div id="errorContainer" class="hidden">
         <p id="errorMessage" class="error"></p>
-      </div>
-      <div class="settings">
-        <input
-          type="text"
-          id="apiKeyInput"
-          placeholder="Enter Gemini API Key"
-        />
-        <button id="saveApiKey">Save API Key</button>
-        <p id="apiKeyStatus"></p>
       </div>
     </div>
     <div id="resultContainer" class="hidden">
