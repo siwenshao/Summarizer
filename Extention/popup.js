@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
               }
 
-              const pageContent = response.content.substring(0, 4000); // trim for token limits
+              const pageContent = response.content.substring(0, 7000); // trim for token limits
               const result = await chrome.storage.local.get(["gemini_api_key"]);
               const apiKey = result.gemini_api_key;
 
