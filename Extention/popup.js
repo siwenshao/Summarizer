@@ -10,13 +10,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const apiKeyStatus = document.getElementById("apiKeyStatus");
 
   // Check if API key exists and update UI
-  chrome.storage.local.get(["openai_api_key"], function (result) {
-    if (result.openai_api_key) {
+  chrome.storage.local.get(["gemini_api_key"], function (result) {
+    if (result.gemini_api_key) {
       apiKeyInput.value = "************";
       apiKeyStatus.textContent = "API Key is set";
       apiKeyStatus.className = "success";
     } else {
-      apiKeyStatus.textContent = "Please enter your OpenAI API Key";
+      apiKeyStatus.textContent = "Please enter your Gemini API Key";
       apiKeyStatus.className = "warning";
     }
   });
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
   saveApiKey.addEventListener("click", function () {
     const apiKey = apiKeyInput.value.trim();
     if (apiKey.length > 0) {
-      chrome.storage.local.set({ openai_api_key: apiKey }, function () {
+      chrome.storage.local.set({ gemini_api_key: apiKey }, function () {
         apiKeyInput.value = "************";
         apiKeyStatus.textContent = "API Key saved!";
         apiKeyStatus.className = "success";
@@ -74,10 +74,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
               if (response && response.success) {
                 // Get the API key
-                chrome.storage.local.get(["openai_api_key"], function (result) {
-                  if (!result.openai_api_key) {
+                chrome.storage.local.get(["gemini_api_key"], function (result) {
+                  if (!result.gemini_api_key) {
                     showError(
-                      "API key not found. Please enter your OpenAI API key in the settings."
+                      "API key not found. Please enter your Gemini API key in the settings."
                     );
                     return;
                   }
