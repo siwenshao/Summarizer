@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({
                     contents: [{ parts: prompt }],
-                    generationConfig: { maxOutputTokens: 600 },
+                    generationConfig: { maxOutputTokens: 7500 },
                   }),
                 }
               );
