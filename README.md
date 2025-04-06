@@ -1,4 +1,4 @@
-# 🧠 WebPage Summarizer Chrome Extension
+# WebPage Summarizer Chrome Extension
 
 A Chrome extension that **summarizes web pages** and answers user questions using the **Gemini API** (Google's AI model). Great for quick research, understanding lengthy articles, or getting insights without reading the full page.
 
