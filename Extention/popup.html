@@ -25,6 +25,15 @@
       <button id="saveApiKey">Save API Key</button>
       <p id="apiKeyStatus"></p>
     </div>
+
+    <hr>
+    <h3>Ask Anything</h3>
+    <div>
+    <input type="text" id="chatInput" placeholder="Type your question..." style="width: 80%;">
+    <button id="sendChat">Send</button>
+    </div>
+    <div id="chatLoading" class="hidden">Thinking...</div>
+    <div id="chatResponse" style="margin-top: 10px;"></div>
   </div>
   <script src="popup.js"></script>
 </body>
