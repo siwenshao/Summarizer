@@ -155,4 +155,72 @@ document.addEventListener('DOMContentLoaded', function() {
     
     return html;
   }
+
+  sendChat.addEventListener("click", async () => {
+    const userQuestion = chatInput.value.trim();
+    if (!userQuestion) return;
+  
+    chatLoading.classList.remove("hidden");
+    chatResponse.innerHTML = "";
+  
+    chrome.tabs.query({ active: true, currentWindow: true }, async function (tabs) {
+      const activeTab = tabs[0];
+  
+      try {
+        // Inject content.js (in case it's not loaded yet)
+        await chrome.scripting.executeScript({
+          target: { tabId: activeTab.id },
+          files: ['content.js']
+        });
+  
+        // Get readable content from the page
+        chrome.tabs.sendMessage(activeTab.id, { action: "getPageContent" }, async function (response) {
+          if (!response || !response.success) {
+            chatLoading.classList.add("hidden");
+            chatResponse.innerHTML = " Could not read page content.";
+            return;
+          }
+  
+          const pageContent = response.content.substring(0, 4000); // trim for token limits
+          const result = await chrome.storage.local.get(['gemini_api_key']);
+          const apiKey = result.gemini_api_key;
+  
+          if (!apiKey) {
+            chatLoading.classList.add("hidden");
+            chatResponse.innerHTML = " API key not found.";
+            return;
+          }
+  
+          const prompt = [
+            { text: "You are a helpful assistant that reads a webpage and answers questions based on its content." },
+            { text: "Webpage content:\n" + pageContent },
+            { text: "User question:\n" + userQuestion }
+          ];
+  
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-pro-002:generateContent?key=${apiKey}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [{ parts: prompt }],
+              generationConfig: { maxOutputTokens: 600 }
+            })
+          });
+  
+          const data = await res.json();
+          console.log("Gemini chat response:", data);
+          chatLoading.classList.add("hidden");
+  
+          if (data?.candidates?.[0]?.content?.parts?.[0]?.text) {
+            chatResponse.innerHTML = `<br>${data.candidates[0].content.parts[0].text}`;
+          } else {
+            chatResponse.innerHTML = " Gemini returned no usable reply.";
+          }
+        });
+      } catch (err) {
+        chatLoading.classList.add("hidden");
+        chatResponse.innerHTML = ` Error: ${err.message}`;
+      }
+    });
+  });
+  
 });
