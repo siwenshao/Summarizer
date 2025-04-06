@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
               }
 
-              const pageContent = response.content.substring(0, 7000); // trim for token limits
+              const pageContent = response.content.substring(0, 1048576); // trim for token limits
               const result = await chrome.storage.local.get(["gemini_api_key"]);
               const apiKey = result.gemini_api_key;
 
@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({
                     contents: [{ parts: prompt }],
-                    generationConfig: { maxOutputTokens: 600 },
+                    generationConfig: { maxOutputTokens: 8192 },
                   }),
                 }
               );
