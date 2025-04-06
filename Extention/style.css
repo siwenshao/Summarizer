@@ -8,41 +8,37 @@ body {
 .container {
   width: 500px;
   padding: 16px;
-  align-items: left;
   display: flex;
   flex-direction: column;
-  /* font-family: Lucida Console, Monospace; */
-  /* justify-content: center; */
 }
 
 h1 {
-  font-size: 24px;
-  color: navy;
-  margin-top: 0;
-  text-align: center; /* Center the title */
+  font-family: "Leckerli One";
+  font-size: 54px;
+  color: #209cee;
+  margin: 0;
+  text-align: center;
 }
 
 h2 {
   font-size: 18px;
   color: black;
-  text-align: left; /* Center the subtitle */
 }
 
 button {
-  background-color: #4285f4;
+  background-color: #209cee;
   color: white;
   border: none;
-  padding: 14px 24px;
+  padding: 10px 24px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px; /* Increase the button size */
+  font-size: 16px;
   margin-bottom: 16px;
-  width: auto; /* Ensure the button takes up its content width */
-  align-self: left; /* Center the button */
+  width: auto;
 }
 
 button:hover {
-  background-color: #3367d6;
+  background-color: #209cee;
 }
 
 .hidden {
@@ -60,20 +56,19 @@ button:hover {
 .settings {
   display: flex;
   flex-direction: column;
-  margin: 3 0;
-  text-align: left; /* Center the content */
+  text-align: left;
+  margin-bottom: 16px;
 }
 
 .keyAndButton {
   display: flex;
-  flex-direction: row;
-  margin: 0;
-  justify-content: left;
+  width: 100%;
+  align-items: center;
 }
 
 #apiKeyInput {
-  width: 50%;
-  padding: 14px 8px;
+  width: 60%;
+  padding: 5px 8px;
   margin-right: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -81,11 +76,30 @@ button:hover {
 }
 
 #saveApiKey {
-  padding: 5px;
+  width: 25%;
+  padding: 5px 8px;
   height: 35px;
   font-size: 16px;
   text-align: center;
-  width: 25%;
+  cursor: pointer;
+}
+
+#chatInput {
+  width: 75%;
+  padding: 10px 8px;
+  margin-right: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  height: 45px;
+  text-align: top;
+}
+
+#sendChat {
+  width: 20%;
+  padding: 0;
+  height: 35px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 #apiKeyStatus {
@@ -106,7 +120,7 @@ button:hover {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border-left-color: #4285f4;
+  border-left-color: #209cee;
   animation: spin 1s linear infinite;
   margin: 0 auto 12px;
 }
@@ -128,6 +142,7 @@ button:hover {
 #loadingIndicator p {
   color: #666;
 }
+
 #summaryContent {
   background-color: white;
   padding: 16px;
@@ -136,16 +151,24 @@ button:hover {
   margin-bottom: 16px;
   max-height: 300px;
   overflow-y: auto;
-  font-size: 14px; /* Larger font size for the summary */
+  font-size: 14px;
   border: black;
 }
 
 #summaryContent ul {
-  list-style-type: disc; /* Display bullet points */
-  padding-left: 16px; /* Indentation for the bullets */
+  list-style-type: disc;
+  padding-left: 16px;
 }
 
 #summaryContent b,
 #summaryContent strong {
-  font-weight: bold; /* Make bold text show correctly */
+  font-weight: bold;
+}
+
+#chatResponse {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+  padding: 10px;
+  border-radius: 4px;
 }

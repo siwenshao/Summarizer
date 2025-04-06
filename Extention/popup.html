@@ -1,16 +1,18 @@
-<script src="https://cdn.jsdelivr.net/npm/marked@4.0.10/lib/marked.umd.min.js"></script>
-
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <title>WebPage Summarizer</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Leckerli One"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container">
       <!-- TITLE -->
-      <h1>WebPage Summarizer</h1>
+      <h1>Summarizer</h1>
 
       <!-- Enter Gemini API Key -->
       <h2>Enter Gemini API Key:</h2>
@@ -23,7 +25,6 @@
           />
           <button id="saveApiKey">Save API Key</button>
         </div>
-
         <p id="apiKeyStatus"></p>
       </div>
 
@@ -40,29 +41,24 @@
       <div id="errorContainer" class="hidden">
         <p id="errorMessage" class="error"></p>
       </div>
-    </div>
-    <div id="resultContainer" class="hidden">
-      <h2>Summary:</h2>
-      <div id="summaryContent"></div>
-    </div>
-    <div id="errorContainer" class="hidden">
-      <p id="errorMessage" class="error"></p>
-    </div>
-    <div class="settings">
-      <input type="text" id="apiKeyInput" placeholder="Enter Gemini API Key">
-      <button id="saveApiKey">Save API Key</button>
-      <p id="apiKeyStatus"></p>
-    </div>
 
-    <hr>
-    <h3>Ask Anything</h3>
-    <div>
-    <input type="text" id="chatInput" placeholder="Type your question..." style="width: 80%;">
-    <button id="sendChat">Send</button>
+      <hr />
+      <!-- Ask Anything Section -->
+      <div class="settings">
+        <h3>Ask Anything</h3>
+        <div class="keyAndButton">
+          <input
+            type="text"
+            id="chatInput"
+            placeholder="Type your question..."
+          />
+          <button id="sendChat">Send</button>
+        </div>
+        <div id="chatLoading" class="hidden">Thinking...</div>
+        <!-- Move this div inside #summaryContent -->
+        <div id="chatResponse" style="margin-top: 10px"></div>
+      </div>
     </div>
-    <div id="chatLoading" class="hidden">Thinking...</div>
-    <div id="chatResponse" style="margin-top: 10px;"></div>
-  </div>
-  <script src="popup.js"></script>
-</body>
+    <script src="popup.js"></script>
+  </body>
 </html>
