@@ -54,7 +54,9 @@ async function fetchSummaryFromAPI(content) {
                   text: "You are a helpful assistant that summarizes web content concisely.",
                 },
                 {
-                  text: `Please summarize the following web content comprehensively and accurately in about 3-5 bullet points:\n\n${trimmedContent}`,
+                  text: `Please summarize the following web content comprehensively and accurately in about 3-5 bullet points. If the webpage 
+                    has a lot of ads, please focus more on the main point and ignore the ads. If the content is an article, 
+                    please focus on the article, tell us what the article is about in detail?:\n\n${trimmedContent}`,
                 },
               ],
             },

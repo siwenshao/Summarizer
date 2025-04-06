@@ -134,65 +134,48 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function formatSummary(text) {
-    // Break text into lines
     const lines = text.split("\n");
     let html = "";
-
     let inList = false;
 
     for (const line of lines) {
-      const trimmedLine = line.trim();
+      let trimmedLine = line.trim();
+      let isListItem = false;
 
-      // Check if this line is a bullet point (either '•', '-', or '*')
+      // First, handle italics and bold to avoid misinterpreting markers
+      trimmedLine = trimmedLine.replace(
+        /\*\*(.+?)\*\*/g,
+        "<strong>$1</strong>"
+      );
+      trimmedLine = trimmedLine.replace(/\*(.+?)\*/g, "<em>$1</em>");
+      trimmedLine = trimmedLine.replace(/__(.+?)__/g, "<strong>$1</strong>");
+      trimmedLine = trimmedLine.replace(/_(.+?)_/g, "<em>$1</em>");
+
+      // Now, check for bullet points after processing italics/bold
       if (
         trimmedLine.startsWith("•") ||
         trimmedLine.startsWith("-") ||
         trimmedLine.startsWith("*")
       ) {
-        // Start a list if we're not in one
+        isListItem = true;
+        trimmedLine = trimmedLine.substring(1).trim(); // Remove bullet point marker
+      }
+
+      if (isListItem) {
         if (!inList) {
           html += "<ul>";
           inList = true;
         }
-
-        // Remove the bullet symbol and trim the content
-        const content = trimmedLine.substring(1).trim();
-
-        // Check for bold text (e.g., "**bold**" or "*bold*") inside the bullet point
-        let formattedContent = content.replace(
-          /\*\*(.*?)\*\*/g,
-          "<strong>$1</strong>"
-        ); // Convert **bold** to <strong>bold</strong>
-        formattedContent = formattedContent.replace(
-          /\*(.*?)\*/g,
-          "<strong>$1</strong>"
-        ); // Convert *bold* to <strong>bold</strong>
-
-        // Add the formatted content as a list item
-        html += `<li>${formattedContent}</li>`;
+        html += `<li>${trimmedLine}</li>`;
       } else if (trimmedLine.length > 0) {
-        // End the list if we were in one
         if (inList) {
           html += "</ul>";
           inList = false;
         }
-
-        // Check for bold text in non-list content
-        let formattedText = trimmedLine.replace(
-          /\*\*(.*?)\*\*/g,
-          "<strong>$1</strong>"
-        ); // Convert **bold** to <strong>bold</strong>
-        formattedText = formattedText.replace(
-          /\*(.*?)\*/g,
-          "<strong>$1</strong>"
-        ); // Convert *bold* to <strong>bold</strong>
-
-        // Add the formatted text as a paragraph
-        html += `<p>${formattedText}</p>`;
+        html += `<p>${trimmedLine}</p>`;
       }
     }
 
-    // Close the list if we're still in one
     if (inList) {
       html += "</ul>";
     }
@@ -230,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
               }
 
-              const pageContent = response.content.substring(0, 1048576); // trim for token limits
+              const pageContent = response.content.substring(0, 4000); // trim for token limits
               const result = await chrome.storage.local.get(["gemini_api_key"]);
               const apiKey = result.gemini_api_key;
 
@@ -256,7 +239,6 @@ document.addEventListener("DOMContentLoaded", function () {
                   body: JSON.stringify({
                     contents: [{ parts: prompt }],
                     generationConfig: { maxOutputTokens: 8192 },
-
                   }),
                 }
               );
@@ -266,7 +248,11 @@ document.addEventListener("DOMContentLoaded", function () {
               chatLoading.classList.add("hidden");
 
               if (data?.candidates?.[0]?.content?.parts?.[0]?.text) {
-                chatResponse.innerHTML = `<br>${data.candidates[0].content.parts[0].text}`;
+                chatResponse.innerHTML = formatSummary(
+                  data.candidates[0].content.parts[0].text
+                );
+
+                // `<br>${data.candidates[0].content.parts[0].text}`;
               } else {
                 chatResponse.innerHTML = " Gemini returned no usable reply.";
               }
