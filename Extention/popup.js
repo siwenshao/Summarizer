@@ -256,6 +256,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   body: JSON.stringify({
                     contents: [{ parts: prompt }],
                     generationConfig: { maxOutputTokens: 8192 },
+
                   }),
                 }
               );
