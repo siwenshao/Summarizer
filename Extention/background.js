@@ -34,13 +34,13 @@ async function fetchSummaryFromAPI(content) {
   }
 
   // Trim the content if it's too long
-  const trimmedContent = content.substring(0, 4000);
+  const trimmedContent = content.substring(0, 10000000);
 
   try {
-    console.log("Calling Gemini API with gemini-2.0-flash...");
-    // Using the correct model name for Gemini 2.0 Flash
+    console.log("Calling Gemini API with gemini-3.0-flash...");
+    // Using the correct model name for Gemini 3.0 Flash
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.0-flash:generateContent?key=${apiKey}`,
       {
         method: "POST",
         headers: {
@@ -62,7 +62,7 @@ async function fetchSummaryFromAPI(content) {
             },
           ],
           generationConfig: {
-            maxOutputTokens: 500,
+            maxOutputTokens: 8000,
           },
         }),
       }
@@ -77,7 +77,7 @@ async function fetchSummaryFromAPI(content) {
 
     // The structure of the response might be slightly different for different models.
     // Ensure you are accessing the correct property for the generated text.
-    // For gemini-2.0-flash, it's likely still within `candidates[0].content.parts[0].text`.
+    // For gemini-3.0-flash, it's likely still within `candidates[0].content.parts[0].text`.
     if (
       data.candidates &&
       data.candidates.length > 0 &&

@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
               }
 
-              const pageContent = response.content.substring(0, 4000); // trim for token limits
+              const pageContent = response.content.substring(0, 10000000); // trim for token limits
               const result = await chrome.storage.local.get(["gemini_api_key"]);
               const apiKey = result.gemini_api_key;
 
@@ -232,7 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
               ];
 
               const res = await fetch(
-                `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+                `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.0-flash:generateContent?key=${apiKey}`,
                 {
                   method: "POST",
                   headers: { "Content-Type": "application/json" },
